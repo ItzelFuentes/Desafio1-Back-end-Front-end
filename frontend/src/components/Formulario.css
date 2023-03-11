@@ -14,7 +14,7 @@
 #cardServ {
   background-color: #5184a1;
   width: 350px;
-  height: 390px;
+  height: 435px;
   margin: 15px;
   text-align: center;
   line-height: 15px;
@@ -23,7 +23,12 @@
 
 }
 
+#button{
+  margin-right: 10px;
+}
+
 .mb-3{
   width: 270px;
   margin-left: 40px;
 }
+

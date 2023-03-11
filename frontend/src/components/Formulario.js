@@ -1,7 +1,7 @@
 
 import React from 'react'
 import "../components/Formulario.css";
-import { Form } from 'react-bootstrap'; 
+import { Form, Button } from 'react-bootstrap'; 
 
 function FormDisabledInputExample() {
   return (
@@ -28,7 +28,9 @@ function FormDisabledInputExample() {
         <Form.Label>IMAGES</Form.Label>
         <Form.Control placeholder="Imagen" />
       </Form.Group> 
-     
+      <Button id="button" variant="primary">Agregar</Button>
+      <Button id="button" variant="danger">Eliminar</Button>
+      <Button id="button" variant="warning">Editar</Button>
       </div>
       </div>
     </>
