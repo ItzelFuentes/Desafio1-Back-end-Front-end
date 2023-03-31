@@ -1,4 +1,4 @@
-/*import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
 import { apiSlice } from '../app/api/apiSlice';
 
 const productsAdapter = createEntityAdapter({});
@@ -10,8 +10,9 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 		getProducts: builder.query({
 			query: () => '/products',
 			validateStatus: (response, result) => {
-				return response.status === 200 && !result.isError;
+				return response.status === 200 && !result.error;
 			},
+			keepUnusedDataFor: 5,
 			transformResponse: responseData => {
 				const loadedProducts = responseData.map(product => {
 					product.id = product._id;
@@ -19,7 +20,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 				});
 				return productsAdapter.setAll(initialState, loadedProducts);
 			},
-			providesTags: (result, error, arg) => {
+			providedTags: (result, erro, arg) => {
 				if (result?.ids) {
 					return [
 						{ type: 'Product', id: 'LIST' },
@@ -46,39 +47,44 @@ export const productsApiSlice = apiSlice.injectEndpoints({
 					...initialProductData,
 				},
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: 'Product', id: arg.id }],
+			invalidatesTags: (result, error, arg) => [
+				{ type: 'Product', id: arg.id },
+			],
 		}),
 		deleteProduct: builder.mutation({
-			query: ({ id }) => ({
-				url: `/products`,
+			query: initialProductData => ({
+				url: '/products',
 				method: 'DELETE',
-				body: { id },
+				body: {
+					...initialProductData,
+				},
 			}),
-			invalidatesTags: (result, error, arg) => [{ type: 'Product', id: arg.id }],
+			invalidatesTags: (result, error, arg) => [
+				{ type: 'Product', id: arg.id },
+			],
 		}),
 	}),
 });
 
 export const {
-	useGetProductQuery,
-	UseAddNewProductMutation,
-	UseUpdateProductMutation,
-	UseDeleteProductMutation,
+	useGetProductsQuery,
+	useAddNewProductMutation,
+	useUpdateProductMutation,
+	useDeleteProductMutation,
 } = productsApiSlice;
 
-// returns the query result object
-export const selectProductResult = productsApiSlice.endpoints.getProducts.select();
+export const selectProductsResult =
+	productsApiSlice.endpoints.getProducts.select();
 
-// creates memoized selector
 const selectProductsData = createSelector(
-	selectProductResult,
-	productsResult => productsResult.data // normalized state object with ids & entities
+	selectProductsResult,
+	productsResult => productsResult.data
 );
 
-//getSelectors creates these selectors and we rename them with aliases using destructuring
 export const {
 	selectAll: selectAllProducts,
 	selectById: selectProductById,
 	selectIds: selectProductIds,
-} = productsAdapter.getSelectors(state => selectProductsData(state) ?? initialState); 
-*/
+} = productsAdapter.getSelectors(
+	state => selectProductsData(state) ?? initialState
+);

@@ -1,0 +1,60 @@
+.cards{
+    display: grid;
+    justify-content: center;
+    gap: 80px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.contenedor{
+    width: full;
+    margin-top: 8px;
+    padding: 0 64px;
+}
+
+.contenedor-2{
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1440px;
+    padding-top: 0;
+}
+
+.formulario{
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    width: 270px;
+    max-width: full;
+    border-radius: 0px;
+    padding: 904px;
+    background-color: #658d88;
+    border: 1px solid #000000;
+    padding: 20px;
+
+}
+
+.label{
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 20px;
+}
+
+.input{
+    margin-bottom: 32px;
+    height: 30px;
+    width: full;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: rgba(0, 0, 0, 0.16) solid 1px;
+    padding: 2px 4px;
+    color: #333333;
+}
+
+
+.button{
+    position: relative;
+    bottom: 0;
+    
+}

@@ -1,34 +1,30 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from 'react';
+import Formulario from './components/formulario';
+import Registro from './components/registro';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import EditProduct from './components/EditProduct'
+import ProductsList from './components/ProductsList';
 
 
 function App() {
-  const [products, setProducts] = React.useState([]);
 
-
-  React.useEffect(() => {
-    fetch('/products') //URL de listado de productos
-    .then((response) => response.json())
-    .then((data) => {
-       console.log(data);
-       setProducts(data); //
-    })
-    .catch((err) => {
-       console.log(err.message);
-    });  }, []);
-
-
-  console.log("Products", products);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"  width={'500px'}/>
-        {products.map((product) => (<div>{product.name}</div>))}
-      </header>
-    </div>
+    <>
+    
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<ProductsList/>}/>
+        <Route path={'Formulario'} element={<Registro/>}/>
+        <Route path={'products'} >
+          <Route path={':id'} element={<EditProduct/>}/>
+          
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </>
+    
+    
   );
 }
-
 
 export default App;
